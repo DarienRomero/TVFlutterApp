@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tv_flutter_app/pages/player_page.dart';
+import 'package:tv_flutter_app/utils/navigation.dart';
 import 'package:tv_flutter_app/utils/utils.dart';
 import 'package:tv_flutter_app/widgets/custom_icon_button.dart';
 import 'package:tv_flutter_app/widgets/sidebar.dart';
@@ -121,17 +123,22 @@ class HomePage extends StatelessWidget {
                             margin: EdgeInsets.only(
                               right: mqWidth(context, 2)
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: FadeInImage(
-                                width: mqWidth(context, 15),
-                                height: mqHeigth(context, 40),
-                                fit: BoxFit.cover,
-                                fadeInDuration: const Duration(milliseconds: 100),
-                                placeholder: const AssetImage("assets/images/loading_image.gif"), 
-                                image: const NetworkImage(
-                                  "https://m.media-amazon.com/images/I/81ai6zx6eXL._AC_SL1304_.jpg",
-                                )
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.push(context, materialNavigationRoute(context, const PlayerPage()));
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: FadeInImage(
+                                  width: mqWidth(context, 15),
+                                  height: mqHeigth(context, 40),
+                                  fit: BoxFit.cover,
+                                  fadeInDuration: const Duration(milliseconds: 100),
+                                  placeholder: const AssetImage("assets/images/loading_image.gif"), 
+                                  image: const NetworkImage(
+                                    "https://m.media-amazon.com/images/I/81ai6zx6eXL._AC_SL1304_.jpg",
+                                  )
+                                ),
                               ),
                             )
                           );

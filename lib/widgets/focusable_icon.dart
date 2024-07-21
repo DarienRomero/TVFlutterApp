@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SidebarIcon extends StatelessWidget {
+class FocusableIcon extends StatelessWidget {
   final bool focused;
   final IconData icon;
-  const SidebarIcon({
+  const FocusableIcon({
     super.key,
     required this.focused,
     required this.icon,
