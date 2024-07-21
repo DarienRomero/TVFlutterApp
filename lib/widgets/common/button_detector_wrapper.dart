@@ -29,17 +29,13 @@ class _ButtonDetectorWrapperState extends State<ButtonDetectorWrapper> {
   bool sending = false;
 
   @override
-  void didUpdateWidget(covariant ButtonDetectorWrapper oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if(!oldWidget.hasFocus && widget.hasFocus){
+  Widget build(BuildContext context) {
+    if (widget.hasFocus) {
       FocusScope.of(context).requestFocus(_focusNode);
-    }else if(oldWidget.hasFocus && !widget.hasFocus){
+    }
+    if (!widget.hasFocus) {
       _focusNode.unfocus();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return RawKeyboardListener(
       focusNode: _focusNode,
       onKey: (RawKeyEvent event) {
@@ -48,15 +44,15 @@ class _ButtonDetectorWrapperState extends State<ButtonDetectorWrapper> {
           final int keyPressed = event.logicalKey.keyId;
           print("keyPressed");
           print(keyPressed);
-          if(keyPressed == 4295426129){
+          if(keyPressed == 4294968065){
             widget.onBottomPressed?.call();
-          }else if(keyPressed == 4295426130){
+          }else if(keyPressed == 4294968068){
             widget.onTopPressed?.call();
           }else if(keyPressed == 4294968066){
             widget.onLeftPressed?.call();
           }else if(keyPressed == 4294968067){
             widget.onRightPressed?.call();
-          }else if(keyPressed == 4295426167 || keyPressed == 4295426088){
+          }else if(keyPressed == 4294968588){
             widget.onEnterPressed?.call();
           }
         }
