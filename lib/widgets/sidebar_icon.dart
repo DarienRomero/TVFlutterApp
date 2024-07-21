@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class SidebarIcon extends StatelessWidget {
   final bool focused;
+  final IconData icon;
   const SidebarIcon({
     super.key,
-    required this.focused
+    required this.focused,
+    required this.icon,
   });
 
   @override
@@ -22,7 +24,7 @@ class SidebarIcon extends StatelessWidget {
       onPressed: (){
         print("Clicked");
       }, 
-      icon: Icon(Icons.home_filled, color: focused ? Colors.black : Colors.white.withOpacity(0.6) ,)
+      icon: Icon(icon, color: focused ? Colors.black : Colors.white.withOpacity(0.6) ,)
     );
   }
 }
