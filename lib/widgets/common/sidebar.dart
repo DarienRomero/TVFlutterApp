@@ -17,22 +17,18 @@ class Sidebar extends StatelessWidget {
           VSpacing(3),
           FocusableIcon(
             path: "assets/icons/menu-icon.svg",
-            focused: false, 
           ),
           VSpacing(4),
           FocusableIcon(
             path: "assets/icons/home-icon.svg",
-            focused: true, 
           ),
           VSpacing(2),
           FocusableIcon(
             path: "assets/icons/favorite-icon.svg",
-            focused: false, 
           ),
           VSpacing(2),
           FocusableIcon(
             path: "assets/icons/profile-icon.svg",
-            focused: false, 
           ),
         ],
       ),

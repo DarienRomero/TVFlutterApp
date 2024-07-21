@@ -30,7 +30,6 @@ class PlayerPage extends StatelessWidget {
                   children: [
                     HSpacing(2),
                     FocusableIcon(
-                      focused: false, 
                       path: "assets/icons/arrow-back-icon.svg",
                       outlined: true,
                     ),

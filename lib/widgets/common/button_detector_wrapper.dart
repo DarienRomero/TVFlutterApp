@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+ 
+class ButtonDetectorWrapper extends StatefulWidget {
+  final Widget child;
+  final bool hasFocus;
+  final Function()? onLeftPressed;
+  final Function()? onRightPressed;
+  final Function()? onTopPressed;
+  final Function()? onBottomPressed;
+  final Function()? onEnterPressed;
+
+  ButtonDetectorWrapper({
+    required this.child, 
+    required this.hasFocus, 
+    this.onLeftPressed, 
+    this.onRightPressed, 
+    this.onTopPressed, 
+    this.onBottomPressed, 
+    this.onEnterPressed, 
+  });
+
+  @override
+  _ButtonDetectorWrapperState createState() => _ButtonDetectorWrapperState();
+}
+
+class _ButtonDetectorWrapperState extends State<ButtonDetectorWrapper> {
+  final FocusNode _focusNode = FocusNode();
+  bool sending = false;
+
+  @override
+  void didUpdateWidget(covariant ButtonDetectorWrapper oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(!oldWidget.hasFocus && widget.hasFocus){
+      FocusScope.of(context).requestFocus(_focusNode);
+    }else if(oldWidget.hasFocus && !widget.hasFocus){
+      _focusNode.unfocus();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RawKeyboardListener(
+      focusNode: _focusNode,
+      onKey: (RawKeyEvent event) {
+        if(!widget.hasFocus) return;
+        if (event.runtimeType == RawKeyDownEvent) {
+          final int keyPressed = event.logicalKey.keyId;
+          print("keyPressed");
+          print(keyPressed);
+          if(keyPressed == 4295426129){
+            widget.onBottomPressed?.call();
+          }else if(keyPressed == 4295426130){
+            widget.onTopPressed?.call();
+          }else if(keyPressed == 4294968066){
+            widget.onLeftPressed?.call();
+          }else if(keyPressed == 4294968067){
+            widget.onRightPressed?.call();
+          }else if(keyPressed == 4295426167 || keyPressed == 4295426088){
+            widget.onEnterPressed?.call();
+          }
+        }
+      }, child: widget.child
+    );
+  }
+}

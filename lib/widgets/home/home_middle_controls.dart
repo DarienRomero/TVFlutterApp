@@ -10,20 +10,24 @@ class HomeMiddleControls extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         FocusableIcon(
-          focused: false, 
           path: "assets/icons/arrow-back-icon.svg",
           outlined: true,
+          label: "home_previous_movie",
+          rightLabel: "home_play_icon",
         ),
         FocusableIcon(
-          focused: false, 
           path: "assets/icons/play-icon.svg",
           size: 8,
           backgroundOpacity: 0.6,
+          label: "home_play_icon",
+          leftLabel: "home_previous_movie",
+          rightLabel: "home_next_movie",
         ),
         FocusableIcon(
-          focused: false, 
           path: "assets/icons/arrow-forward-icon.svg",
           outlined: true,
+          label: "home_next_movie",
+          leftLabel: "home_play_icon"
         ),
       ],
     );

@@ -11,18 +11,15 @@ class PlayerBottomControls extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         FocusableIcon(
-          focused: false, 
           path: "assets/icons/double-left.svg",
         ),
         HSpacing(2),
         FocusableIcon(
-          focused: false, 
           path: "assets/icons/play-icon.svg",
           size: 5,
         ),
         HSpacing(2),
         FocusableIcon(
-          focused: false, 
           path: "assets/icons/double-right.svg",
         ),
       ],
