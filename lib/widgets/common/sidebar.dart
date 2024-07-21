@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tv_flutter_app/utils/utils.dart';
-import 'package:tv_flutter_app/widgets/focusable_icon.dart';
-import 'package:tv_flutter_app/widgets/v_spacing.dart';
+import 'package:tv_flutter_app/widgets/common/focusable_icon.dart';
+import 'package:tv_flutter_app/widgets/common/v_spacing.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -16,23 +16,23 @@ class Sidebar extends StatelessWidget {
         children: [
           VSpacing(3),
           FocusableIcon(
-            focused: true,
-            icon: Icons.menu
+            path: "assets/icons/menu-icon.svg",
+            focused: false, 
           ),
           VSpacing(4),
           FocusableIcon(
-            focused: false,
-            icon: Icons.home_filled
+            path: "assets/icons/home-icon.svg",
+            focused: true, 
           ),
           VSpacing(2),
           FocusableIcon(
-            focused: false,
-            icon: Icons.favorite
+            path: "assets/icons/favorite-icon.svg",
+            focused: false, 
           ),
           VSpacing(2),
           FocusableIcon(
-            focused: false,
-            icon: Icons.person
+            path: "assets/icons/profile-icon.svg",
+            focused: false, 
           ),
         ],
       ),
