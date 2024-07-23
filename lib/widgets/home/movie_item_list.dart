@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:tv_flutter_app/models/movie_model.dart';
+import 'package:tv_flutter_app/pages/player_page.dart';
 import 'package:tv_flutter_app/providers/button_focus_provider.dart';
+import 'package:tv_flutter_app/utils/labels.dart';
+import 'package:tv_flutter_app/utils/navigation.dart';
+import 'package:tv_flutter_app/utils/utils.dart';
 import 'package:tv_flutter_app/widgets/common/button_detector_wrapper.dart';
-import 'package:tv_flutter_app/widgets/common/custom_icon_button.dart';
 
-class FocusableIcon extends StatelessWidget {
-  final String path;
-  final bool outlined;
-  final double size;
-  final double backgroundOpacity;
+class MovieListItem extends StatelessWidget {
+  final MovieModel movieModel;
   final String label;
   final String? leftLabel;
   final String? rightLabel;
@@ -17,13 +17,10 @@ class FocusableIcon extends StatelessWidget {
   final String? bottomLabel;
   final Function? onPressed;
 
-  const FocusableIcon({
+  const MovieListItem({
     super.key,
-    required this.path,
-    this.outlined = false,
-    this.size = 4,
-    this.backgroundOpacity = 0.3,
-    this.label = "",
+    required this.movieModel,
+    required this.label,
     this.leftLabel,
     this.rightLabel,
     this.topLabel,
@@ -71,21 +68,48 @@ class FocusableIcon extends StatelessWidget {
               buttonFocusProvider.buttonFocusedLabel = "${label}_${buttonFocusProvider.getRandomNumber()}";
             }
           },
-          child: CustomIconButton(
-            size: size,
-            fillColor: focused ? Colors.white : Colors.black.withOpacity(backgroundOpacity),
-            onPressed: (){}, 
-            iconPer: 0.4,
-            borderColor: outlined ? Colors.white.withOpacity(focused ? 1.0 : 0.8)  : null,
-            borderWidth: 1.0,
-            borderRadius: outlined ? 5: 100,
-            icon: SvgPicture.asset(
-              path,
-              color: focused ? Colors.black : Colors.white.withOpacity(0.8),
+          onEnterPressed: (){
+            final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
+            buttonFocusProvider.buttonFocusedLabel = playerPlayOption;
+            Navigator.push(context, materialNavigationRoute(context, const PlayerPage()));
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            margin: EdgeInsets.only(
+              right: mqWidth(context, 2),
+              top: mqHeigth(context, focused ? 0 : 1),
+              bottom: mqHeigth(context, focused ? 0 : 1)
+            ),
+            child: InkWell(
+              onTap: (){
+                Navigator.push(context, materialNavigationRoute(context, const PlayerPage()));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: focused ? Border.all(
+                    color: Colors.white,
+                    width: 2.0
+                  ) : null
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: FadeInImage(
+                    width: mqWidth(context, focused ? 16 : 15),
+                    height: mqHeigth(context, 40),
+                    fit: BoxFit.cover,
+                    fadeInDuration: const Duration(milliseconds: 100),
+                    placeholder: const AssetImage("assets/images/loading_image.gif"), 
+                    image: const NetworkImage(
+                      "https://m.media-amazon.com/images/I/81ai6zx6eXL._AC_SL1304_.jpg",
+                    )
+                  ),
+                ),
+              ),
             )
           ),
         );
-      },
+      }
     );
   }
 }

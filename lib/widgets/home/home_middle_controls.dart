@@ -16,6 +16,7 @@ class HomeMiddleControls extends StatelessWidget {
           label: homePreviousMovie,
           rightLabel: homePlayIcon,
           leftLabel: sidebarProfileOption,
+          bottomLabel: topMoviesItem + '0',
         ),
         FocusableIcon(
           path: "assets/icons/play-icon.svg",
@@ -24,12 +25,14 @@ class HomeMiddleControls extends StatelessWidget {
           label: homePlayIcon,
           leftLabel: homePreviousMovie,
           rightLabel: homeNextMovie,
+          bottomLabel: topMoviesItem + '0',
         ),
         FocusableIcon(
           path: "assets/icons/arrow-forward-icon.svg",
           outlined: true,
           label: homeNextMovie,
           leftLabel: homePlayIcon,
+          bottomLabel: topMoviesItem + '0',
         ),
       ],
     );

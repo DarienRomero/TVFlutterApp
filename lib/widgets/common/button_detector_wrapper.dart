@@ -12,7 +12,7 @@ class ButtonDetectorWrapper extends StatefulWidget {
 
   ButtonDetectorWrapper({
     required this.child, 
-    required this.hasFocus, 
+    required this.hasFocus,
     this.onLeftPressed, 
     this.onRightPressed, 
     this.onTopPressed, 

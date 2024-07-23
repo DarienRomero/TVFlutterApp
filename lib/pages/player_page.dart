@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tv_flutter_app/utils/labels.dart';
 import 'package:tv_flutter_app/utils/utils.dart';
 import 'package:tv_flutter_app/widgets/common/focusable_icon.dart';
 import 'package:tv_flutter_app/widgets/common/h_spacing.dart';
@@ -32,6 +33,9 @@ class PlayerPage extends StatelessWidget {
                     FocusableIcon(
                       path: "assets/icons/arrow-back-icon.svg",
                       outlined: true,
+                      label: playerBackOption,
+                      bottomLabel: playerPlayOption,
+                      rightLabel: playerBackwardOption,
                     ),
                   ],
                 ),
