@@ -11,6 +11,15 @@ class ButtonFocusProvider extends ChangeNotifier{
   }
   String get buttonFocusedLabel => _buttonFocusedLabel;
 
+  String _lastButtonFocusedLabel = "";
+
+  String get lastButtonFocusedLabel => _lastButtonFocusedLabel;
+
+  set lastButtonFocusedLabel(String lastButtonFocusedLabel){
+    _lastButtonFocusedLabel = lastButtonFocusedLabel;
+    notifyListeners();
+  }
+
   int getRandomNumber(){
     return seed.nextInt(100);
   }

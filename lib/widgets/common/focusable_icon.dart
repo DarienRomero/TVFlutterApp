@@ -15,7 +15,11 @@ class FocusableIcon extends StatelessWidget {
   final String? rightLabel;
   final String? topLabel;
   final String? bottomLabel;
-  final Function? onPressed;
+  final Function()? onLeftPressed;
+  final Function()? onTopPressed;
+  final Function()? onBottomPressed;
+  final Function()? onRightPressed;
+  final Function()? onEnterPressed;
 
   const FocusableIcon({
     super.key,
@@ -28,7 +32,11 @@ class FocusableIcon extends StatelessWidget {
     this.rightLabel,
     this.topLabel,
     this.bottomLabel,
-    this.onPressed
+    this.onLeftPressed,
+    this.onBottomPressed,
+    this.onEnterPressed,
+    this.onRightPressed,
+    this.onTopPressed
   });
 
   @override
@@ -46,6 +54,7 @@ class FocusableIcon extends StatelessWidget {
             }else{
               buttonFocusProvider.buttonFocusedLabel = "${label}_${buttonFocusProvider.getRandomNumber()}";
             }
+            if(onLeftPressed != null) onLeftPressed!();
           },
           onRightPressed: (){
             final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
@@ -54,6 +63,7 @@ class FocusableIcon extends StatelessWidget {
             }else{
               buttonFocusProvider.buttonFocusedLabel = "${label}_${buttonFocusProvider.getRandomNumber()}";
             }
+            if(onRightPressed != null) onRightPressed!();
           },
           onTopPressed: (){
             final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
@@ -62,6 +72,7 @@ class FocusableIcon extends StatelessWidget {
             }else{
               buttonFocusProvider.buttonFocusedLabel = "${label}_${buttonFocusProvider.getRandomNumber()}";
             }
+            if(onTopPressed != null) onTopPressed!();
           },
           onBottomPressed: (){
             final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
@@ -70,11 +81,17 @@ class FocusableIcon extends StatelessWidget {
             }else{
               buttonFocusProvider.buttonFocusedLabel = "${label}_${buttonFocusProvider.getRandomNumber()}";
             }
+            if(onBottomPressed != null) onBottomPressed!();
+          },
+          onEnterPressed: (){
+            if(onEnterPressed != null) onEnterPressed!();
           },
           child: CustomIconButton(
             size: size,
             fillColor: focused ? Colors.white : Colors.black.withOpacity(backgroundOpacity),
-            onPressed: (){}, 
+            onPressed: (){
+              if(onEnterPressed != null) onEnterPressed!();
+            },
             iconPer: 0.4,
             borderColor: outlined ? Colors.white.withOpacity(focused ? 1.0 : 0.8)  : null,
             borderWidth: 1.0,

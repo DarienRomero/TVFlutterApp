@@ -71,7 +71,10 @@ class MovieListItem extends StatelessWidget {
           onEnterPressed: (){
             final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
             buttonFocusProvider.buttonFocusedLabel = playerPlayOption;
-            Navigator.push(context, materialNavigationRoute(context, const PlayerPage()));
+            buttonFocusProvider.lastButtonFocusedLabel = label;
+            Navigator.push(context, materialNavigationRoute(context, PlayerPage(
+              movieModel: movieModel,
+            )));
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 500),
@@ -82,7 +85,9 @@ class MovieListItem extends StatelessWidget {
             ),
             child: InkWell(
               onTap: (){
-                Navigator.push(context, materialNavigationRoute(context, const PlayerPage()));
+                Navigator.push(context, materialNavigationRoute(context, PlayerPage(
+                  movieModel: movieModel,
+                )));
               },
               child: Container(
                 decoration: BoxDecoration(

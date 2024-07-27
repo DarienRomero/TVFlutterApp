@@ -52,7 +52,7 @@ class _ButtonDetectorWrapperState extends State<ButtonDetectorWrapper> {
             widget.onLeftPressed?.call();
           }else if(keyPressed == 4294968067){
             widget.onRightPressed?.call();
-          }else if(keyPressed == 4294968588){
+          }else if(keyPressed == 4294968588 || keyPressed == 4294967309){
             widget.onEnterPressed?.call();
           }
         }
