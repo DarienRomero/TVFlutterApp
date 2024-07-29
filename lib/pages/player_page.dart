@@ -33,7 +33,7 @@ class _PlayerPageState extends State<PlayerPage> {
       child: Builder(
         builder: (context) {
           return WillPopScope(
-            onWillPop: () {
+            onWillPop: (){
               final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
               buttonFocusProvider.buttonFocusedLabel = buttonFocusProvider.lastButtonFocusedLabel;
               Provider.of<PlayerProvider>(context, listen: false).disposeVideoPlayer().then((_){
@@ -44,6 +44,14 @@ class _PlayerPageState extends State<PlayerPage> {
             child: Scaffold(
               body: Stack(
                 children: [
+                  SizedBox(
+                    width: mqWidth(context, 100),
+                    height: mqHeigth(context, 100),
+                    child: Image.network(
+                      widget.movieModel.horizontalPhoto,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   CustomVideoPlayer(
                     movieModel: widget.movieModel,
                   ),

@@ -10,7 +10,8 @@ class ButtonDetectorWrapper extends StatefulWidget {
   final Function()? onBottomPressed;
   final Function()? onEnterPressed;
 
-  ButtonDetectorWrapper({
+  const ButtonDetectorWrapper({
+    super.key, 
     required this.child, 
     required this.hasFocus,
     this.onLeftPressed, 
@@ -21,7 +22,8 @@ class ButtonDetectorWrapper extends StatefulWidget {
   });
 
   @override
-  _ButtonDetectorWrapperState createState() => _ButtonDetectorWrapperState();
+  State<ButtonDetectorWrapper> createState() => _ButtonDetectorWrapperState();
+
 }
 
 class _ButtonDetectorWrapperState extends State<ButtonDetectorWrapper> {
@@ -42,8 +44,6 @@ class _ButtonDetectorWrapperState extends State<ButtonDetectorWrapper> {
         if (!widget.hasFocus) return;
         if (event is KeyDownEvent) {
           final int keyPressed = event.logicalKey.keyId;
-          print("keyPressed");
-          print(keyPressed);
           if (keyPressed == 4294968065) {
             widget.onBottomPressed?.call();
           } else if (keyPressed == 4294968068) {

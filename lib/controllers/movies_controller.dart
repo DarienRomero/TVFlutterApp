@@ -15,7 +15,7 @@ class MoviesController {
   Future<dynamic> readTopMovies() async {
     try{
       //TODO: Change to http implementation
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       return MovieModel.exampleList;
     } on SocketException {
       return ErrorResponse.network;

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tv_flutter_app/models/movie_model.dart';
 import 'package:tv_flutter_app/pages/player_page.dart';
 import 'package:tv_flutter_app/providers/button_focus_provider.dart';
+import 'package:tv_flutter_app/providers/focused_movie_provider.dart';
 import 'package:tv_flutter_app/utils/labels.dart';
 import 'package:tv_flutter_app/utils/navigation.dart';
 import 'package:tv_flutter_app/utils/utils.dart';
@@ -11,25 +12,27 @@ import 'package:tv_flutter_app/widgets/common/button_detector_wrapper.dart';
 class MovieListItem extends StatelessWidget {
   final MovieModel movieModel;
   final String label;
-  final String? leftLabel;
-  final String? rightLabel;
   final String? topLabel;
   final String? bottomLabel;
   final Function? onPressed;
+  final int index;
+  final List<MovieModel> topMovies;
 
   const MovieListItem({
     super.key,
     required this.movieModel,
     required this.label,
-    this.leftLabel,
-    this.rightLabel,
     this.topLabel,
     this.bottomLabel,
-    this.onPressed
+    this.onPressed,
+    required this.index,
+    required this.topMovies
   });
 
   @override
   Widget build(BuildContext context) {
+    final leftLabel = index == 0 ? sidebarProfileOption : "$topMoviesItem${index - 1}";
+    final rightLabel = index >= topMovies.length - 1 ? null  : "$topMoviesItem${index + 1}";
     return Selector<ButtonFocusProvider, String>(
       selector: (context, buttonFocusProvider) => buttonFocusProvider.buttonFocusedLabel,
       builder: (context, buttonFocusedLabel, _) {
@@ -38,16 +41,20 @@ class MovieListItem extends StatelessWidget {
           hasFocus: focused,
           onLeftPressed: (){
             final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
-            if(leftLabel != null){
-              buttonFocusProvider.buttonFocusedLabel = leftLabel!;
-            }else{
-              buttonFocusProvider.buttonFocusedLabel = "${label}_${buttonFocusProvider.getRandomNumber()}";
+            final focusedMovieProvider = Provider.of<FocusedMovieProvider>(context, listen: false);
+            buttonFocusProvider.buttonFocusedLabel = leftLabel;
+            if(index > 0){
+              focusedMovieProvider.focusedMovie = topMovies[index - 1];
             }
           },
           onRightPressed: (){
             final buttonFocusProvider = Provider.of<ButtonFocusProvider>(context, listen: false);
+            final focusedMovieProvider = Provider.of<FocusedMovieProvider>(context, listen: false);
             if(rightLabel != null){
-              buttonFocusProvider.buttonFocusedLabel = rightLabel!;
+              if(index < topMovies.length - 1 ){
+                focusedMovieProvider.focusedMovie = topMovies[index + 1];
+              }
+              buttonFocusProvider.buttonFocusedLabel = rightLabel;
             }else{
               buttonFocusProvider.buttonFocusedLabel = "${label}_${buttonFocusProvider.getRandomNumber()}";
             }
@@ -105,8 +112,8 @@ class MovieListItem extends StatelessWidget {
                     fit: BoxFit.cover,
                     fadeInDuration: const Duration(milliseconds: 100),
                     placeholder: const AssetImage("assets/images/loading_image.gif"), 
-                    image: const NetworkImage(
-                      "https://m.media-amazon.com/images/I/81ai6zx6eXL._AC_SL1304_.jpg",
+                    image: NetworkImage(
+                      movieModel.verticalPhoto,
                     )
                   ),
                 ),

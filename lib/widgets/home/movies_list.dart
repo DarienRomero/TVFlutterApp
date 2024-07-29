@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tv_flutter_app/providers/focused_movie_provider.dart';
 import 'package:tv_flutter_app/providers/movies_provider.dart';
 import 'package:tv_flutter_app/utils/labels.dart';
 import 'package:tv_flutter_app/utils/utils.dart';
@@ -22,7 +23,12 @@ class _MoviesListState extends State<MoviesList> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
-      moviesProvider.readTopMovies();
+      moviesProvider.readTopMovies().then((movies){
+        if(movies.isNotEmpty){
+          final focusedMovieProvider = Provider.of<FocusedMovieProvider>(context, listen: false);
+          focusedMovieProvider.focusedMovie = movies.first;
+        }
+      });
     });
   }
   
@@ -46,9 +52,9 @@ class _MoviesListState extends State<MoviesList> {
           return MovieListItem(
             movieModel: item, 
             label: label,
-            leftLabel: index == 0 ? sidebarProfileOption : "$topMoviesItem${index - 1}",
-            rightLabel: index >= moviesProvider.topMovies.length - 1 ? null  : "$topMoviesItem${index + 1}",
             topLabel: homePlayIcon,
+            index: index,
+            topMovies: moviesProvider.topMovies,
           );
         },
       ),

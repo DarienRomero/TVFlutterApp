@@ -39,5 +39,13 @@ class MovieModel {
       // url: "http://ns557370.ip-54-39-52.net:8024/server3pelis/espanol/Woody_Woodpecker_Goes_to_Camp_2024.mkv",
     ),
   ];
+
+  static get empty => MovieModel(
+    id: 0,
+    name: "",
+    verticalPhoto: "",
+    horizontalPhoto: "",
+    url: ""
+  );
 }
 

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tv_flutter_app/providers/focused_movie_provider.dart';
+import 'package:tv_flutter_app/providers/movies_provider.dart';
 import 'package:tv_flutter_app/utils/labels.dart';
 import 'package:tv_flutter_app/widgets/common/focusable_icon.dart';
 
@@ -7,7 +10,7 @@ class HomeMiddleControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         FocusableIcon(
@@ -16,7 +19,10 @@ class HomeMiddleControls extends StatelessWidget {
           label: homePreviousMovie,
           rightLabel: homePlayIcon,
           leftLabel: sidebarProfileOption,
-          bottomLabel: topMoviesItem + '0',
+          bottomLabel: '${topMoviesItem}0',
+          onBottomPressed: (){
+            selectFocusedMovie(context);
+          },
         ),
         FocusableIcon(
           path: "assets/icons/play-icon.svg",
@@ -25,16 +31,29 @@ class HomeMiddleControls extends StatelessWidget {
           label: homePlayIcon,
           leftLabel: homePreviousMovie,
           rightLabel: homeNextMovie,
-          bottomLabel: topMoviesItem + '0',
+          bottomLabel: '${topMoviesItem}0',
+          onBottomPressed: (){
+            selectFocusedMovie(context);
+          },
         ),
         FocusableIcon(
           path: "assets/icons/arrow-forward-icon.svg",
           outlined: true,
           label: homeNextMovie,
           leftLabel: homePlayIcon,
-          bottomLabel: topMoviesItem + '0',
+          bottomLabel: '${topMoviesItem}0',
+          onBottomPressed: (){
+            selectFocusedMovie(context);
+          },
         ),
       ],
     );
+  }
+  void selectFocusedMovie(BuildContext context){
+    final topMovies = Provider.of<MoviesProvider>(context, listen: false).topMovies;
+    final focusedMovieProvider = Provider.of<FocusedMovieProvider>(context, listen: false);
+    if(topMovies.isNotEmpty){
+      focusedMovieProvider.focusedMovie = topMovies.first;
+    }
   }
 }

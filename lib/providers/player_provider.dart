@@ -100,7 +100,6 @@ class PlayerProvider extends ChangeNotifier{
     timer = Timer(const Duration(seconds: 3), () {
       if(videoPlayerDisposed) return;
       controlsVisible = false;
-      print("NOTIFY LISTENERS");
       notifyListeners();
     });
   }
