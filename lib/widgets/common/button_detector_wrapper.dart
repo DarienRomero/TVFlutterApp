@@ -36,27 +36,28 @@ class _ButtonDetectorWrapperState extends State<ButtonDetectorWrapper> {
     if (!widget.hasFocus) {
       _focusNode.unfocus();
     }
-    return RawKeyboardListener(
+    return KeyboardListener(
       focusNode: _focusNode,
-      onKey: (RawKeyEvent event) {
-        if(!widget.hasFocus) return;
-        if (event.runtimeType == RawKeyDownEvent) {
+      onKeyEvent: (KeyEvent event) {
+        if (!widget.hasFocus) return;
+        if (event is KeyDownEvent) {
           final int keyPressed = event.logicalKey.keyId;
           print("keyPressed");
           print(keyPressed);
-          if(keyPressed == 4294968065){
+          if (keyPressed == 4294968065) {
             widget.onBottomPressed?.call();
-          }else if(keyPressed == 4294968068){
+          } else if (keyPressed == 4294968068) {
             widget.onTopPressed?.call();
-          }else if(keyPressed == 4294968066){
+          } else if (keyPressed == 4294968066) {
             widget.onLeftPressed?.call();
-          }else if(keyPressed == 4294968067){
+          } else if (keyPressed == 4294968067) {
             widget.onRightPressed?.call();
-          }else if(keyPressed == 4294968588 || keyPressed == 4294967309){
+          } else if (keyPressed == 4294968588 || keyPressed == 4294967309) {
             widget.onEnterPressed?.call();
           }
         }
-      }, child: widget.child
+      },
+      child: widget.child,
     );
   }
 }
