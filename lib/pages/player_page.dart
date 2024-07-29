@@ -9,7 +9,6 @@ import 'package:tv_flutter_app/utils/labels.dart';
 import 'package:tv_flutter_app/utils/utils.dart';
 import 'package:tv_flutter_app/widgets/common/focusable_icon.dart';
 import 'package:tv_flutter_app/widgets/common/h_spacing.dart';
-import 'package:tv_flutter_app/widgets/common/v_spacing.dart';
 import 'package:tv_flutter_app/widgets/player/custom_video_player.dart';
 import 'package:tv_flutter_app/widgets/player/player_bottom_controls.dart';
 import 'package:tv_flutter_app/widgets/player/player_gradient.dart';
@@ -87,23 +86,13 @@ class _PlayerPageState extends State<PlayerPage> {
                                       ),
                                     ],
                                   ),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        height: 5,
-                                        width: mqWidth(context, 90),
-                                        color: Colors.white,
-                                      ),
-                                      const VSpacing(2),
-                                      PlayerBottomControls(
-                                        isPlaying: playerProvider.videoPlayerInitialized ? playerProvider.videoPlayerController.value.isPlaying : false,
-                                        onBack: playerProvider.goBack,
-                                        onForward: playerProvider.goForward,
-                                        onPlay: (){
-                                          playerProvider.onPlay();
-                                        }
-                                      )
-                                    ],
+                                  PlayerBottomControls(
+                                    isPlaying: playerProvider.isPlaying,
+                                    onBack: playerProvider.goBack,
+                                    onForward: playerProvider.goForward,
+                                    onPlay: (){
+                                      playerProvider.onPlay();
+                                    }
                                   ),
                                 ],
                               ),

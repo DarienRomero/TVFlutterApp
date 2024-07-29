@@ -1,1 +1,1 @@
-const int timerBackorForwardMilliseconds = 10;
+const int timerBackorForwardMilliseconds = 10000;

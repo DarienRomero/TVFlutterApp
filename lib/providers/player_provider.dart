@@ -15,14 +15,17 @@ class PlayerProvider extends ChangeNotifier{
   bool controlsVisible = true;
   late Timer timerTrackVideo;
   final oneSec = const Duration(seconds: 1);
+  bool isPlaying = false;
 
   init(String url){
     videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
         url))
       ..initialize().then((_) {
         videoPlayerInitialized = true;
-        notifyListeners();
+        totalTime = parseTotalTime(videoPlayerController.value.duration.inMilliseconds.round());
         videoPlayerController.play();
+        isPlaying = true;
+        notifyListeners();
       });
     timer = Timer(const Duration(seconds: 3), () {
       controlsVisible = false;
@@ -42,13 +45,15 @@ class PlayerProvider extends ChangeNotifier{
 
   void onPlay() {
     activeControls();
-    if(videoPlayerController.value.isPlaying){
+    if(isPlaying){
       videoPlayerController.pause().then((_){
-        notifyListeners();
+        isPlaying = false;
+        checkTimer();
       });
     }else{
       videoPlayerController.play().then((_){
-        notifyListeners();
+        isPlaying = true;
+        checkTimer();
       });
     }
   }
@@ -62,7 +67,7 @@ class PlayerProvider extends ChangeNotifier{
       if(after < max){
         Duration afterDuration = Duration(milliseconds: after);
         await videoPlayerController.seekTo(afterDuration);
-        notifyListeners();
+        checkTimer();
       }
     }catch(_){}
   }
@@ -77,7 +82,7 @@ class PlayerProvider extends ChangeNotifier{
       }
       Duration beforeDuration = Duration(milliseconds: before);
       await videoPlayerController.seekTo(beforeDuration);
-      notifyListeners();
+      checkTimer();
     }catch(_){}
   }
 
