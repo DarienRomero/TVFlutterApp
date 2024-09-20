@@ -1,6 +1,6 @@
 # tv_flutter_app
 
-A new Flutter project.
+Flutter version: 3.22.2
 
 ## Getting Started
 
